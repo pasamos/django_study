@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+ 
+{% block title %}welcome home page{% endblock %}
+ 
+{% block content %}
+
+{% if username %}
+    <h2>welcome {{ username }}</h2>
+{% endif %}
+
+
+<p><strong>{{ message }} </strong><br/>
+{% for item in data %}
+	{{ item }}<br/>
+{% empty %}
+    <li>no data</li>
+{% endfor %}
+</p>
+</p>
+
+{% endblock %}

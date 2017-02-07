@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+ 
+{% block title %}welcome test page{% endblock %}
+ 
+{% block content %}
+
+<h2>text example:</h2>
+this is {{ text }}
+<br/>
+this is {{ text|upper }}
+<br/>
+
+<h2>list example:</h2>
+{% for i in list %}
+{{ i }}<br/>
+{% endfor %}
+
+<h2>dict example:</h2>
+{{ dict.name }}
+<br/>
+{# 循环dict #}
+{% for key, value in dict.items %}
+    {{ key }}: {{ value }} 
+	{% if not forloop.last %};{% endif %}   {# 最后一项不加; #}
+{% empty %}
+    <li>it is empty</li>
+{% endfor %}
+
+<h2>url name example:</h2>
+{% url 'add2' 4 5 %}   {# urls.py 中对应的name; #}
+<br/>
+<a href="{% url 'add2' 4 5 %}">add link 4 and 5</a>
+
+<h2>[request] example:</h2>
+<p><strong>request.user:</strong> 
+{% if request.user.is_authenticated %}
+    {{ request.user.username }}，welcome！
+{% else %}
+    anonymous
+{% endif %}
+</p>
+<p><strong>request.path:</strong> {{ request.path }}</p>
+<p><strong>request.GET.urlencode:</strong> {{ request.GET.urlencode }}</p>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Default Title{% endblock %} - djangotest</title>
+</head>
+<body>
+ 
+{% include 'top.html' %}
+ 
+{% block content %}
+<div>This is default content</div>
+{% endblock %}
+ 
+{% include 'bottom.html' %}
+
+</body>
+</html>
