@@ -19,15 +19,15 @@ from hello import views as hello_views
 
 urlpatterns = [
     url(r'^$', hello_views.login),
-	url(r'^login/', hello_views.login),
+    url(r'^login/', hello_views.login),
 	
-	url(r'^dbtables/', hello_views.dbtables),
+    url(r'^dbtables/', hello_views.dbtables),
     url(r'^insertuser/', hello_views.insertuser),
     url(r'^getusers/', hello_views.getusers),
     url(r'^updateuser/', hello_views.updateuser),
     url(r'^deleteuser/', hello_views.deleteuser),
 	
-	url(r'^test/', hello_views.test),
+    url(r'^test/', hello_views.test),
     url(r'^hello/', hello_views.hello),
     url(r'^add/$', hello_views.add, name='add'),
     url(r'^add/(\d+)/(\d+)/$', hello_views.add2, name='add2'),
