@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^updateuser/', hello_views.updateuser),
     url(r'^deleteuser/', hello_views.deleteuser),
 	
+    url(r'^removesession/', hello_views.removesession),
     url(r'^test/', hello_views.test),
     url(r'^hello/', hello_views.hello),
     url(r'^add/$', hello_views.add, name='add'),

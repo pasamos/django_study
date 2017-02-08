@@ -38,6 +38,7 @@ def login(request):
 		context={}
 		context['username'] = username
 		context['message'] = 'login success!:'
+		request.session['username'] = username
 		return render(request, "home.html", context)
 
 	return render(request, "login.html")
@@ -53,6 +54,8 @@ def dbtables(request):
     context={}
     context['message'] = 'tables:'
     context['data'] = list(values)
+
+    context['username'] = request.session.get('username',default=None)
     return render(request, "home.html", context)
 
 def getusers(request):
@@ -121,4 +124,18 @@ def deleteuser(request):
 	context['message'] = 'delete done!'
 	context['data'] = userlist
 	return render(request, "home.html", context)
+    
+def removesession(request):
+        context={}
+        username = request.session.get('username',default=None)
+        if username!=None:
+            del request.session['username']
+            
+            context['message'] = 'remove session done!'
+        else:
+            context['message'] = 'no session exists!'
+        return render(request, "home.html", context)
+
+
+
     
