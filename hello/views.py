@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from hello.models import UserInfo
 import sqlite3
+from django.http import JsonResponse
 
 def hello(request):
     return HttpResponse("Hello world ! ")
@@ -130,12 +131,14 @@ def removesession(request):
         username = request.session.get('username',default=None)
         if username!=None:
             del request.session['username']
-            
             context['message'] = 'remove session done!'
         else:
             context['message'] = 'no session exists!'
+            
         return render(request, "home.html", context)
 
-
+def ajaxlist(request):
+        a = range(100)
+        return JsonResponse(a, safe=False)
 
     

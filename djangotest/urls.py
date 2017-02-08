@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^deleteuser/', hello_views.deleteuser),
 	
     url(r'^removesession/', hello_views.removesession),
+    url(r'^ajaxlist/', hello_views.ajaxlist, name='ajaxlist'),
     url(r'^test/', hello_views.test),
     url(r'^hello/', hello_views.hello),
     url(r'^add/$', hello_views.add, name='add'),
