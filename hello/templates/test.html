@@ -42,4 +42,8 @@ this is {{ text|upper }}
 <p><strong>request.path:</strong> {{ request.path }}</p>
 <p><strong>request.GET.urlencode:</strong> {{ request.GET.urlencode }}</p>
 
+<h2>context_processor example:</h2>
+<p>SETTING DEBUG: {{ settings.DEBUG }}</p>
+<p>ip: {{ ip_address }}</p>
+
 {% endblock %}
