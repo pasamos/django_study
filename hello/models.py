@@ -7,6 +7,7 @@ class UserInfo(models.Model):
     age = models.IntegerField()
     sex = models.CharField(max_length=10)
     password = models.CharField(max_length=30)
+    loginCount = models.IntegerField(default=0)
     
     def __str__(self):
-        return self.name + '-' + str(self.age) + '-' + self.sex
+        return 'name:'+self.name + '-age:' + str(self.age) + '-sex:' + self.sex+ '-login count:' + str(self.loginCount)

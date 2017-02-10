@@ -29,28 +29,35 @@ def test(request):
     return render(request, 'test.html', context)
 
 def login(request):
-	if request.POST:
-		#print request.user
-		username=request.POST['username']
-		password=request.POST['password']
-		if username=='' or password=='':
-			return render(request, "login.html", {"message":"input username and password!"})
+	if request.method == 'POST':
+	    #print request.user
+	    username=request.POST['username']
+	    password=request.POST['password']
+	    if username=='' or password=='':
+		    return render(request, "login.html", {"message":"input username and password!"})
 
-                userinfo = UserInfo.objects.filter(name=username).values('name', 'password')
-                if list(userinfo)!=[]:
-                    correctPassword=list(userinfo)[0]['password']
-                    print correctPassword
-                    if correctPassword==password:
-                        context={}
-                        context['username'] = username
-                        context['message'] = 'login success!:'
-                        request.session['username'] = username
-                        return render(request, "home.html", context)
-                    else:
-                        return render(request, "login.html",{"message":"wrong password!"})
+            userinfo = UserInfo.objects.filter(name=username).values('name', 'password')
+            if list(userinfo)!=[]:
+                correctPassword=list(userinfo)[0]['password']
+                if correctPassword==password:
+                    context={}
+                    context['username'] = username
+                    context['message'] = 'login success!:'
+                    request.session['username'] = username
+                    return render(request, "home.html", context)
                 else:
-                    return render(request, "login.html",{"message":"wrong username!"})
-                    
+                    return render(request, "login.html",{"message":"wrong password!"})
+            else:
+                return render(request, "login.html",{"message":"wrong username!"})
+
+        if request.method == 'GET':
+            userSession = request.session.get('username',default=None)
+            if userSession!=None:
+                context={}
+                context['username'] = userSession
+                context['message'] = 'login success!:'
+                return render(request, "home.html", context)
+        
 	return render(request, "login.html")
 
 def dbtables(request):
@@ -105,7 +112,7 @@ def getusers(request):
 		response += var.name + "-" + var.password + " " 
 
 	context={}
-	context['message'] = 'user names:'+response
+	context['message'] = 'users:'+response
 	context['data'] = userlist
 	return render(request, "home.html", context)
 
@@ -121,14 +128,14 @@ def insertuser(request):
                 context['message'] = 'please input username and password!'
 		return render(request, "home.html", context)
 
-            existsuser = UserInfo.objects.filter(name=username)
-            if list(existsuser)!=[]:
+            if UserInfo.objects.filter(name=username).exists():
                 context['message'] = 'failed: name exists!'
                 return render(request, "home.html", context)
 	        
             #UserInfo.objects.create(name=username, age=age, sex=sex, password=password)
 
-            #result = UserInfo.objects.get_or_create(name=username, age=age, sex=sex, password=password) #return tuple (object, True/False)
+            #result = UserInfo.objects.get_or_create(name=username, age=age, sex=sex, password=password)
+            #return tuple (object, True/False)
             #print '-------------insert result-------------'
             #print result
             
@@ -154,9 +161,9 @@ def updateuser(request):
 	password=request.POST['newpassword']
 
         #UserInfo.objects.filter(name=updatename).update(age='20')
-	user = UserInfo.objects.filter(name=updatename)
-
-	if list(user)!=[]:
+	
+        if UserInfo.objects.filter(name=updatename).exists():
+            user = UserInfo.objects.filter(name=updatename)
             for item in user:
                 item.age = age
                 item.sex = sex
@@ -184,11 +191,10 @@ def deleteuser(request):
         #user = UserInfo.objects.order_by('-id').all()[:1][0]
         #UserInfo.objects.filter(name=deletename).delete()
         #UserInfo.objects.all().delete()
-        user = UserInfo.objects.filter(name=deletename)
-        
-        if list(user)!=[]:
+        if UserInfo.objects.filter(name=deletename).exists():
+            user = UserInfo.objects.filter(name=deletename)
             user.delete()
-            
+
             userlist = UserInfo.objects.all()
             context['message'] = 'delete done!'
             context['data'] = userlist
@@ -210,7 +216,7 @@ def removesession(request):
         return render(request, "home.html", context)
 
 def ajaxlist(request):
-        userlist = UserInfo.objects.values('name', 'age', 'sex')
+        userlist = UserInfo.objects.values('name', 'age', 'sex', 'loginCount')
         return JsonResponse(list(userlist), safe=False)
 
     
