@@ -1,31 +1,57 @@
 <p> 
 
-	
+	<p>
 	<form action="/dbtables/" method="get">
         <input type="submit" value="db tables">
     </form>
-	
+	</p>
+
+	<p>
 	<form action="/getusers/" method="get">
         <input type="submit" value="get all users">
     </form>
-	
-	<form action="/insertuser/" method="get">
+	</p>
+
+	<p>
+	<form action="/insertuser/" method="post">
+		{% csrf_token %}
+		user name:<input type="text" name="username"> 
+		age:<input type="text" name="age" value="24"> 
+		sex:<input type="text" name="sex" value="male"> 
+		password:<input type="text" name="password" value="123"> 
         <input type="submit" value="insert user">
     </form>
-	
-	<form action="/updateuser/" method="get">
+	</p>
+
+	<p>
+	<form action="/updateuser/" method="post">
+		{% csrf_token %}
+		update name:<input type="text" name="updatename"> 
+		new age:<input type="text" name="newage" value="24"> 
+		new sex:<input type="text" name="newsex" value="male"> 
+		new password:<input type="text" name="newpassword" value="123"> 
         <input type="submit" value="update user">
     </form>
-	
-	<form action="/deleteuser/" method="get">
+	</p>
+
+	<p>
+	<form action="/deleteuser/" method="post">
+		{% csrf_token %}
+		delete name:<input type="text" name="deletename"> 
         <input type="submit" value="delete user">
     </form>
+	</p>
 
+	<p>
 	<form action="/test/" method="get">
         <input type="submit" value="test page">
     </form>
+	</p>
 
+	<p>
 	<form action="/removesession/" method="get">
         <input type="submit" value="remove session">
     </form>
+	</p>
+
 </p>

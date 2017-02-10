@@ -3,7 +3,7 @@
 {% block title %}welcome home page{% endblock %}
  
 {% block content %}
-
+<br/>
 {% if username %}
     <h2>welcome {{ username }}</h2>
 {% endif %}
@@ -11,13 +11,13 @@
 
 <p><strong>{{ message }} </strong><br/>
 {% for item in data %}
-	{{ item }}<br/>
+	<li>{{ item }}</li><br/>
 {% empty %}
     <li>no data</li>
 {% endfor %}
 </p>
 </p>
-
+<br/><br/>
 <p>SETTING DEBUG: {{ settings.DEBUG }}</p>
 <p>ip: {{ ip_address }}</p>
 {% endblock %}
