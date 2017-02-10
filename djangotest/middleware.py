@@ -8,10 +8,12 @@ class LoginCountMiddleware(object):
  
     def __call__(self, request):
         # Code to be executed for each request before the view (and later middleware) are called.
+
+        #print request.META['HTTP_HOST']+ request.META['PATH_INFO'] + request.META['QUERY_STRING']
         if request.path=='/test/':
             userSession = request.session.get('username',default=None)
             if userSession==None:
-                return HttpResponse('<h1>Forbidden, please login</h1>  <a href=''http://127.0.0.1:8000/''>login</a>')
+                return HttpResponse('<h1>Forbidden, please login</h1><a href=''http://'+request.get_host()+ '>login</a>')
             
         response = self.get_response(request)
 
